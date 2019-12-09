@@ -4,39 +4,40 @@ import { CourseService } from './courses.service';
 @Component({
     selector: 'courses',
     template: `
-    <h2>{{ getTitle() }}</h2>
-    <input (keyup) = "onKeyUp($event)" />
+    {{ text | summary}}
     `
 })
 
 // <button class="btn btn-primary" [class.active] = "isActive()" [style.backgroundColor] = " isActive() ? 'red' : 'blue' ">Save</button>
 // <img [src] = "imageUrl"/>
 // <button (click) = "onSave($event)">Save</button>
+// <h2>{{ getTitle() }}</h2>
+    // <input [(ngModel)]="email" (keyup.enter) = "onKeyUp()" />
 
 export class CoursesComponent {
     title = "List of courses";
     courses;
-    imageUrl = "https://homepages.cae.wisc.edu/~ece533/images/airplane.png"
+    imageUrl = "https://homepages.cae.wisc.edu/~ece533/images/airplane.png";
+    email = "amarvadla@gmail.com";
+    text = "asdjd lkajslkdjalskjdl kjalskjd laksj dlakjsdl kajslkd jalsj dlaksjdl aksjdl kajdlkasj lkdjalskdjlk";
 
-    getTitle(){
+    getTitle() {
         return this.title;
     }
 
-    isActive(){
+    isActive() {
         return true;
     }
 
-    onSave($event){
+    onSave($event) {
         console.log($event);
     }
 
-    onKeyUp($event){
-        if($event.keyCode === 13){
-            console.log("Enter was pressed")
-        }
+    onKeyUp() {
+        console.log(this.email)
     }
 
-    constructor(service: CourseService){
+    constructor(service: CourseService) {
         this.courses = service.getCourses();
     }
 }

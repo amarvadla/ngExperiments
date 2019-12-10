@@ -9,6 +9,7 @@ import { CourseComponent } from './course/course.component';
 import { CourseService } from './courses.service';
 import { SummaryPipe } from './course/summary.pipe';
 import { FavoriteComponent } from './favorite/favorite.component';
+import { PanelComponent } from './panel/panel.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { FavoriteComponent } from './favorite/favorite.component';
     CoursesComponent,
     CourseComponent,
     SummaryPipe,
-    FavoriteComponent
+    FavoriteComponent,
+    PanelComponent
   ],
   imports: [
     BrowserModule,
@@ -26,6 +28,9 @@ import { FavoriteComponent } from './favorite/favorite.component';
   providers: [
     CourseService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent,
+    PanelComponent
+  ]
 })
 export class AppModule { }

@@ -21,4 +21,8 @@ export class AppComponent {
   onFavoriteChanged(isFavorite: boolean) {
     console.log(isFavorite);
   }
+
+
+  canSave = true;
+
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
+import { PostService } from '../services/post.service';
 
 @Component({
   selector: 'app-posts',
@@ -9,18 +9,18 @@ import { Http } from '@angular/http';
 export class PostsComponent implements OnInit {
 
   posts: any[];
-  private url = 'http://jsonplaceholder.typicode.com/posts';
 
-  constructor(private http: Http) {
+  constructor(private service: PostService) {
 
   }
-  
+
   ngOnInit() {
-    this.http.get(this.url)
+    this.service.getPosts()
       .subscribe(response => {
         this.posts = response.json();
-      }
-      );
+      }, error => {
+        alert("unexpected error accured!!")
+      });
   }
 
   creatPost(input: HTMLInputElement) {
@@ -29,21 +29,23 @@ export class PostsComponent implements OnInit {
     }
 
     input.value = "";
-    this.http.post(this.url, JSON.stringify(post))
+    this.service.createPosts(post)
       .subscribe(response => {
         post['id'] = response.json().id;
         this.posts.splice(0, 0, post);
         console.log(response)
-      })
+      }, error => {
+        alert("unexpected error accured!!")
+      });
   }
 
   updatePost(post) {
-    this.http.
-      patch(this.url + '/' + post.id, JSON.stringify({ isRead: true }))
+    this.service.updatePost(post)
       .subscribe(response => {
         console.log(response);
-
-      })
+      }, error => {
+        alert("unexpected error accured!!")
+      });
   }
 
 }

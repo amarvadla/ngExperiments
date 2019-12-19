@@ -15,11 +15,9 @@ export class PostsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.service.getPosts()
+    this.service.getAll()
       .subscribe(response => {
         this.posts = response.json();
-      }, error => {
-        alert("unexpected error accured!!")
       });
   }
 
@@ -29,22 +27,23 @@ export class PostsComponent implements OnInit {
     }
 
     input.value = "";
-    this.service.createPosts(post)
+    this.service.create(post)
       .subscribe(response => {
         post['id'] = response.json().id;
         this.posts.splice(0, 0, post);
         console.log(response)
-      }, error => {
-        alert("unexpected error accured!!")
+      }, (error: Response) => {
+        if (error.status === 400) {
+          // this.form.setErrors(error.json());
+        } else throw error;
+
       });
   }
 
   updatePost(post) {
-    this.service.updatePost(post)
+    this.service.update(post)
       .subscribe(response => {
         console.log(response);
-      }, error => {
-        alert("unexpected error accured!!")
       });
   }
 
